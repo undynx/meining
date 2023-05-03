@@ -5,7 +5,7 @@ import { TextField } from 'common/text-field';
 import styles from './login.module.scss';
 
 export const Login = () => {
-  const [email, setEmail] = useState<string>('');
+  /*const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const formValid = !!email && !!password;
@@ -20,5 +20,26 @@ export const Login = () => {
         </Button>
       </form>
     </div>
-  );
+  );*/
+
+  return (
+    <>
+      <div className={styles.container}>
+
+        <div className={styles.formContainer}>
+          <div>
+            <h1>Iniciar sesión</h1>
+            <TextField name={"email"} onChange={() => { }}></TextField>
+            <TextField name={"password"} onChange={() => { }}></TextField>
+            <Button>Ingresar</Button>
+          </div>
+        </div>
+
+        <div className={styles.imgContainer}>
+
+        </div>
+
+      </div>
+    </>
+  )
 };
