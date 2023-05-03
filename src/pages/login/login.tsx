@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from 'common/button';
 import { TextField } from 'common/text-field';
 import styles from './login.module.scss';
+import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 
 export const Login = () => {
   /*const [email, setEmail] = useState<string>('');
@@ -26,16 +27,16 @@ export const Login = () => {
     <>
       <div className={styles.container}>
 
-        <div className={styles.formContainer}>
-          <div>
+        <div className={styles.formDivision}>
+          <div className={styles.formContainer}>
             <h1>Iniciar sesión</h1>
-            <TextField name={"email"} onChange={() => { }}></TextField>
-            <TextField name={"password"} onChange={() => { }}></TextField>
-            <Button>Ingresar</Button>
+            <TextField name={"email"} onChange={() => { }} label='Usuario' type='email'></TextField>
+            <TextField name={"password"} onChange={() => { }} label='Contraseña' type='password' rightIcon={EyeSVG} ></TextField>
+            <Button className={styles.btnIngresar}>Ingresar</Button>
           </div>
         </div>
 
-        <div className={styles.imgContainer}>
+        <div className={styles.imgDivision}>
 
         </div>
 
