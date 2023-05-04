@@ -26,7 +26,7 @@ const Home = () => {
   const charactersLimit = 35;
 
   useEffect(() => {
-    const mailformat = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+    const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (!inputState.match(mailformat) && inputState !== '') {
       setHelperIState('Not a valid email format');
     } else {
