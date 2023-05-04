@@ -5,6 +5,7 @@ import { TextField, TextFieldStatus } from 'common/text-field';
 import styles from './login.module.scss';
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
+import { mailFormat, passwordFormat } from '../../helpers/utils.js'
 
 type EmailType = {
   inputValueEmail: string,
@@ -31,14 +32,11 @@ const initPassState = {
 }
 
 export const Login = () => {
-  const mailValidation = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const passValidation = /^(?=.*[\W_])[a-zA-Z0-9\W_]+$/;
-
   const [emailState, setEmailState] = useState<EmailType>(initEmailState);
   const [passState, setPassState] = useState<PassType>(initPassState);
 
   useEffect(() => {
-    if (!(emailState.inputValueEmail.match(mailValidation)) && (emailState.inputValueEmail != '')) {
+    if (!(emailState.inputValueEmail.match(mailFormat)) && (emailState.inputValueEmail != '')) {
       setEmailState({
         ...emailState,
         helperTextEmail: 'Debe ser un email válido',
@@ -60,7 +58,7 @@ export const Login = () => {
         helperTextPass: 'La contraseña debe ser más larga que 8 caracteres',
         fieldStatusPass: TextFieldStatus.error,
       })
-    } else if ((!passState.inputValuePass.match(passValidation)) && ((passState.inputValuePass !== ''))) {
+    } else if ((!passState.inputValuePass.match(passwordFormat)) && ((passState.inputValuePass !== ''))) {
       setPassState({
         ...passState,
         helperTextPass: 'La contraseña debe tener al menos un caracter especial y un caracter alfanumerico',
