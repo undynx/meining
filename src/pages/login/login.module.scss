@@ -3,12 +3,11 @@
 
 .container {
   display: flex;
+  height: 100vh;
 }
 
 .imgDivision {
   flex: 1;
-  width: 50vh;
-  height: 100vh;
   background-image: url('src/assets/images/foto.jpg');
   background-size: cover;
   background-position: center center;
