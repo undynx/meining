@@ -40,6 +40,12 @@ $helper-colors: (
   color: $text-neutral-30;
 }
 
+.iconError{
+  display: flex;
+  padding-right: 5px;
+  filter: invert(42%) sepia(68%) saturate(1466%) hue-rotate(345deg) brightness(100%) contrast(92%);
+}
+
 .inputStyle {
   padding: 12px;
   width: 100%;

@@ -3,6 +3,7 @@ import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
 import styles from './login.module.scss';
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
+import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
 import { mailFormat, passwordFormat } from '../../helpers/utils.js';
 
@@ -33,6 +34,7 @@ const initPassState = {
 export const Login = () => {
   const [emailState, setEmailState] = useState<EmailType>(initEmailState);
   const [passState, setPassState] = useState<PassType>(initPassState);
+  const [passHidden, setPassHidden] = useState('password');
 
   useEffect(() => {
     if (!(emailState.inputValueEmail.match(mailFormat)) && (emailState.inputValueEmail !== '')) {
@@ -48,7 +50,7 @@ export const Login = () => {
         fieldStatusEmail: TextFieldStatus.default,
       });
     }
-  });
+  }, [emailState.inputValueEmail]);
 
   useEffect(() => {
     if ((passState.inputValuePass.length < 8) && (passState.inputValuePass !== '')) {
@@ -70,7 +72,12 @@ export const Login = () => {
         fieldStatusPass: TextFieldStatus.default,
       });
     }
-  });
+  }, [passState.inputValuePass]);
+
+  const unmaskPass = function unmask() {
+    if (passHidden === 'text') return ClosedEyeSVG;
+    return EyeSVG;
+  };
 
   return (
     <div className={styles.container}>
@@ -84,7 +91,7 @@ export const Login = () => {
             <TextField
               status={emailState.fieldStatusEmail}
               name="email"
-              onChange={(e) => setEmailState({
+              onBlur={(e) => setEmailState({
                 ...emailState,
                 inputValueEmail: e.target.value,
               })}
@@ -99,15 +106,21 @@ export const Login = () => {
             <TextField
               status={passState.fieldStatusPass}
               name="password"
-              onChange={(e) => setPassState({
+              onBlur={(e) => setPassState({
                 ...passState,
                 inputValuePass: e.target.value,
               })}
               label="Contraseña"
-              type="password"
-              rightIcon={EyeSVG}
+              type={passHidden}
+              rightIcon={unmaskPass()}
+              onRightIconClick={() => {
+                if (passHidden === 'text') {
+                  setPassHidden('password');
+                } else { setPassHidden('text'); }
+              }}
               helperText={passState.helperTextPass}
               helperIcon={xSVG}
+              errorMsg
             />
           </section>
 
