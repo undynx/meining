@@ -37,7 +37,7 @@ export const Login = () => {
   const [passHidden, setPassHidden] = useState('password');
 
   useEffect(() => {
-    if (!(emailState.inputValueEmail.match(mailFormat)) && (emailState.inputValueEmail !== '')) {
+    if (!emailState.inputValueEmail.match(mailFormat) && emailState.inputValueEmail !== '') {
       setEmailState({
         ...emailState,
         helperTextEmail: 'Debe ser un email válido',
@@ -53,13 +53,13 @@ export const Login = () => {
   }, [emailState.inputValueEmail]);
 
   useEffect(() => {
-    if ((passState.inputValuePass.length < 8) && (passState.inputValuePass !== '')) {
+    if (passState.inputValuePass.length < 8 && passState.inputValuePass !== '') {
       setPassState({
         ...passState,
         helperTextPass: 'La contraseña debe ser más larga que 8 caracteres',
         fieldStatusPass: TextFieldStatus.error,
       });
-    } else if ((!passState.inputValuePass.match(passwordFormat)) && ((passState.inputValuePass !== ''))) {
+    } else if (!passState.inputValuePass.match(passwordFormat) && passState.inputValuePass !== '') {
       setPassState({
         ...passState,
         helperTextPass: 'La contraseña debe tener al menos un caracter especial y un caracter alfanumerico',
@@ -75,7 +75,9 @@ export const Login = () => {
   }, [passState.inputValuePass]);
 
   const unmaskPass = function unmask() {
-    if (passHidden === 'text') return ClosedEyeSVG;
+    if (passHidden === 'text') {
+      return ClosedEyeSVG;
+    }
     return EyeSVG;
   };
 
@@ -84,7 +86,7 @@ export const Login = () => {
 
       <div className={styles.formDivision}>
         <div className={styles.formContainer}>
-          <img src="src/assets/icons/barco.svg" alt="Imagen de un barco" className={styles.icono} />
+          <img src="src/assets/icons/barco.svg" alt="Imagen de un barco" className={styles.boatIcon} />
 
           <h1 className={styles.header1}>Iniciar sesión</h1>
           <section className={styles.textField}>
@@ -116,7 +118,9 @@ export const Login = () => {
               onRightIconClick={() => {
                 if (passHidden === 'text') {
                   setPassHidden('password');
-                } else { setPassHidden('text'); }
+                } else {
+                  setPassHidden('text');
+                }
               }}
               helperText={passState.helperTextPass}
               helperIcon={xSVG}
@@ -126,26 +130,13 @@ export const Login = () => {
 
           <Button
             className={`${styles.btnIngresar} ${styles.textField}`}
-            disabled={(emailState.inputValueEmail === '') || (passState.inputValuePass === '')}
+            disabled={(emailState.inputValueEmail === '' || passState.inputValuePass === '')}
           >
             Ingresar
           </Button>
 
           <a className={`${styles.textField} ${styles.link}`} href="http://www.google.com">¿Olvidaste tu contraseña?</a>
 
-        </div>
-      </div>
-
-      <div className={styles.imgDivision} />
-
-      <div className={styles.formDivision}>
-        <div className={styles.formContainer}>
-          <img src="src/assets/icons/barco.svg" alt="Imagen de un barco" className={styles.icono} />
-          <h1 className={styles.header1}>Iniciar sesión</h1>
-          <TextField className={styles.textField} name="email" onChange={() => { }} label="Usuario" type="email" />
-          <TextField className={styles.textField} name="password" onChange={() => { }} label="Contraseña" type="password" rightIcon={EyeSVG} />
-          <Button className={`${styles.btnIngresar} ${styles.textField}`}>Ingresar</Button>
-          <a className={`${styles.textField} ${styles.link}`} href="http://www.google.com">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
 
