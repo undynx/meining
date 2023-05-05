@@ -1,24 +1,23 @@
-import { useState } from 'react';
-
 import { Button } from 'common/button';
 import { TextField } from 'common/text-field';
 import styles from './login.module.scss';
+import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 
-export const Login = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+export const Login = () => (
+  <div className={styles.container}>
 
-  const formValid = !!email && !!password;
-
-  return (
-    <div className={styles.container}>
-      <form className={styles.form}>
-        <TextField className={styles.field} label="Email" name="email" onChange={(e) => setEmail(e.target.value)} />
-        <TextField className={styles.field} label="Password" name="password" type="password" onChange={(e) => setPassword(e.target.value)} />
-        <Button className={styles.submitButton} type="submit" disabled={!formValid}>
-          Submit
-        </Button>
-      </form>
+    <div className={styles.formDivision}>
+      <div className={styles.formContainer}>
+        <img src="src/assets/icons/barco.svg" alt="Imagen de un barco" className={styles.icono} />
+        <h1 className={styles.header1}>Iniciar sesión</h1>
+        <TextField className={styles.textField} name="email" onChange={() => { }} label="Usuario" type="email" />
+        <TextField className={styles.textField} name="password" onChange={() => { }} label="Contraseña" type="password" rightIcon={EyeSVG} />
+        <Button className={`${styles.btnIngresar} ${styles.textField}`}>Ingresar</Button>
+        <a className={`${styles.textField} ${styles.link}`} href="http://www.google.com">¿Olvidaste tu contraseña?</a>
+      </div>
     </div>
-  );
-};
+
+    <div className={styles.imgDivision} />
+
+  </div>
+);

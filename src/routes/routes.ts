@@ -50,7 +50,7 @@ export {
 const ROUTES = [
   {
     name: RouteName.Home,
-    path: '/',
+    path: '/home',
     exact: true,
   },
   {
@@ -60,7 +60,7 @@ const ROUTES = [
   },
   {
     name: RouteName.Login,
-    path: '/login',
+    path: '/',
     exact: true,
   },
   {

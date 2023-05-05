@@ -22,7 +22,7 @@ $helper-colors: (
 .iconLeft {
   position: absolute;
   margin-left: 12px;
-  margin-top: 8px;
+  margin-top: 12px;
   transition: all 0.3s ease-in-out;
   color: $text-neutral-30;
 
@@ -34,7 +34,7 @@ $helper-colors: (
 .iconRight {
   position: absolute;
   margin-right: 12px;
-  margin-top: 8px;
+  margin-top: 12px;
   transition: all 0.3s ease-in-out;
   right: 0;
   color: $text-neutral-30;
@@ -49,7 +49,8 @@ $helper-colors: (
   background-color: $surface-light-10;
   color: $text-neutral-30;
 
-  @each $color, $properties in $input-colors {
+  @each $color,
+  $properties in $input-colors {
     &.#{$color} {
       border-color: list.nth($properties, 1);
     }
@@ -97,7 +98,8 @@ $helper-colors: (
   display: flex;
   align-items: center;
 
-  @each $color, $properties in $helper-colors {
+  @each $color,
+  $properties in $helper-colors {
     &.#{$color} {
       color: list.nth($properties, 1);
     }
@@ -109,7 +111,8 @@ $helper-colors: (
   width: 16px;
   margin-right: 4px;
 
-  @each $color, $properties in $helper-colors {
+  @each $color,
+  $properties in $helper-colors {
     &.#{$color} {
       color: list.nth($properties, 1);
     }
