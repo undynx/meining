@@ -96,9 +96,13 @@ export const TextField = ({
       {helperText && (
         <div className={classnames(styles.helperText, styles[status])}>
           {HelperIcon && (
-          <div className={classnames(errorMsg? (styles.helperIcon, styles[status], styles.iconError) : styles.helperIcon, styles[status])}>
-            <HelperIcon data-testid="helper-icon" />
-          </div>
+            <div
+              className={classnames(errorMsg
+                ? (styles.helperIcon, styles[status], styles.iconError)
+                : styles.helperIcon, styles[status])}
+            >
+              <HelperIcon data-testid="helper-icon" />
+            </div>
           )}
           <span>{helperText}</span>
         </div>
