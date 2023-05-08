@@ -24,196 +24,146 @@ $btn-sizes: (
 
 );
 $btn-styles: (
-	primary: (
-		filled: (
-			enabled: (
-				background-color: $primary-color-50,
+	primary: (filled: (enabled: (background-color: $primary-color-50,
 				color: $text-neutral-10,
 			),
-			hover: (
-				background-color: $primary-color-40,
+			hover: (background-color: $primary-color-40,
 				color: $text-neutral-10,
-				shadow: (
-					"primary",
+				shadow: ("primary",
 					10,
 				),
 			),
-			focus: (
-				background-color: $primary-color-50,
+			focus: (background-color: $primary-color-50,
 				color: $text-neutral-10,
-				shadow: (
-					"primary",
+				shadow: ("primary",
 					10,
 				),
 			),
-			active: (
-				background-color: $primary-color-60,
+			active: (background-color: $primary-color-60,
 				color: $text-neutral-10,
-				shadow: (
-					"primary",
+				shadow: ("primary",
 					20,
 				),
 			),
-			disabled: (
-				background-color: $surface-light-50,
+			disabled: (background-color: $surface-light-50,
 				color: $text-neutral-30,
 			),
 		),
-		stroke: (
-			enabled: (
-				background-color: $surface-light-10,
+		stroke: (enabled: (background-color: $surface-light-10,
 				border: 2px solid $primary-color-50,
 				color: $primary-color-50,
 			),
-			hover: (
-				background-color: $primary-color-10,
+			hover: (background-color: $primary-color-10,
 				border: 2px solid $primary-color-50,
 				color: $primary-color-50,
-				shadow: (
-					"primary",
+				shadow: ("primary",
 					10,
 				),
 			),
-			focus: (
-				background-color: $primary-color-20,
+			focus: (background-color: $primary-color-20,
 				border: 2px solid $primary-color-70,
 				color: $primary-color-70,
-				shadow: (
-					"primary",
+				shadow: ("primary",
 					10,
 				),
 			),
-			active: (
-				background-color: $primary-color-30,
+			active: (background-color: $primary-color-30,
 				border: 2px solid $primary-color-90,
 				color: $primary-color-90,
-				shadow: (
-					"primary",
+				shadow: ("primary",
 					20,
 				),
 			),
-			disabled: (
-				background-color: $surface-light-50,
+			disabled: (background-color: $surface-light-50,
 				border: 2px solid $text-neutral-30,
 				color: $text-neutral-30,
 			),
 		),
-		ghost: (
-			enabled: (
-				background-color: $surface-light-10,
+		ghost: (enabled: (background-color: $surface-light-10,
 				color: $primary-color-50,
 			),
-			hover: (
-				background-color: $primary-color-10,
+			hover: (background-color: $primary-color-10,
 				color: $primary-color-50,
 			),
-			focus: (
-				background-color: $primary-color-20,
+			focus: (background-color: $primary-color-20,
 				color: $primary-color-70,
 			),
-			active: (
-				background-color: $primary-color-30,
+			active: (background-color: $primary-color-30,
 				color: $primary-color-90,
 			),
-			disabled: (
-				background-color: $surface-light-10,
+			disabled: (background-color: $surface-light-10,
 				color: $text-neutral-30,
 			),
 		),
 	),
-	secondary: (
-		filled: (
-			enabled: (
-				background-color: $text-neutral-30,
+	secondary: (filled: (enabled: (background-color: $text-neutral-30,
 				color: $text-neutral-10,
 			),
-			hover: (
-				background-color: $text-neutral-40,
+			hover: (background-color: $text-neutral-40,
 				color: $text-neutral-10,
-				shadow: (
-					"light-surface",
+				shadow: ("light-surface",
 					40,
 				),
 			),
-			focus: (
-				background-color: $text-neutral-40,
+			focus: (background-color: $text-neutral-40,
 				color: $text-neutral-10,
-				shadow: (
-					"light-surface",
+				shadow: ("light-surface",
 					40,
 				),
 			),
-			active: (
-				background-color: $text-neutral-50,
+			active: (background-color: $text-neutral-50,
 				color: $text-neutral-10,
-				shadow: (
-					"light-surface",
+				shadow: ("light-surface",
 					40,
 				),
 			),
-			disabled: (
-				background-color: $surface-light-50,
+			disabled: (background-color: $surface-light-50,
 				color: $text-neutral-30,
 			),
 		),
-		stroke: (
-			enabled: (
-				background-color: $surface-light-10,
+		stroke: (enabled: (background-color: $surface-light-10,
 				border: 2px solid $text-neutral-30,
 				color: $text-neutral-30,
 			),
-			hover: (
-				background-color: $surface-light-30,
+			hover: (background-color: $surface-light-30,
 				border: 2px solid $text-neutral-40,
 				color: $text-neutral-40,
-				shadow: (
-					"light-surface",
+				shadow: ("light-surface",
 					40,
 				),
 			),
-			focus: (
-				background-color: $surface-light-30,
+			focus: (background-color: $surface-light-30,
 				border: 2px solid $text-neutral-40,
 				color: $text-neutral-40,
-				shadow: (
-					"light-surface",
+				shadow: ("light-surface",
 					40,
 				),
 			),
-			active: (
-				background-color: $surface-light-40,
+			active: (background-color: $surface-light-40,
 				border: 2px solid $text-neutral-50,
 				color: $text-neutral-50,
-				shadow: (
-					"light-surface",
+				shadow: ("light-surface",
 					40,
 				),
 			),
-			disabled: (
-				background-color: $surface-light-50,
+			disabled: (background-color: $surface-light-50,
 				border: 2px solid $text-neutral-30,
 				color: $text-neutral-30,
 			),
 		),
-		ghost: (
-			enabled: (
-				background-color: $surface-light-10,
+		ghost: (enabled: (background-color: $surface-light-10,
 				color: $text-neutral-30,
 			),
-			hover: (
-				background-color: $surface-light-20,
+			hover: (background-color: $surface-light-20,
 				color: $text-neutral-40,
 			),
-			focus: (
-				background-color: $surface-light-20,
+			focus: (background-color: $surface-light-20,
 				color: $text-neutral-40,
 			),
-			active: (
-				background-color: $surface-light-30,
+			active: (background-color: $surface-light-30,
 				color: $text-neutral-50,
 			),
-			disabled: (
-				background-color: $surface-light-10,
+			disabled: (background-color: $surface-light-10,
 				color: $text-neutral-20,
 			),
 		),
