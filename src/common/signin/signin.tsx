@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
@@ -36,8 +36,8 @@ export const SignIn = () => {
   const [passState, setPassState] = useState<PassType>(initPassState);
   const [passHidden, setPassHidden] = useState(true);
 
-  useEffect(() => {
-    if (!emailState.inputValueEmail.match(mailFormat) && emailState.inputValueEmail !== '') {
+  const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!e.target.value.match(mailFormat) && e.target.value !== '') {
       setEmailState({
         ...emailState,
         helperTextEmail: 'Debe ser un email válido',
@@ -50,16 +50,16 @@ export const SignIn = () => {
         fieldStatusEmail: TextFieldStatus.default,
       });
     }
-  }, [emailState.inputValueEmail]);
+  };
 
-  useEffect(() => {
-    if (passState.inputValuePass.length < 8 && passState.inputValuePass !== '') {
+  const checkPassValidation = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value.length < 8 && e.target.value !== '') {
       setPassState({
         ...passState,
         helperTextPass: 'La contraseña debe ser más larga que 8 caracteres',
         fieldStatusPass: TextFieldStatus.error,
       });
-    } else if (!passState.inputValuePass.match(passwordFormat) && passState.inputValuePass !== '') {
+    } else if (!e.target.value.match(passwordFormat) && e.target.value !== '') {
       setPassState({
         ...passState,
         helperTextPass: 'La contraseña debe tener al menos un caracter especial y un caracter alfanumerico',
@@ -72,7 +72,7 @@ export const SignIn = () => {
         fieldStatusPass: TextFieldStatus.default,
       });
     }
-  }, [passState.inputValuePass]);
+  };
 
   return (
     <div className={styles.container}>
@@ -83,10 +83,11 @@ export const SignIn = () => {
             <TextField
               status={emailState.fieldStatusEmail}
               name="email"
-              onBlur={(e) => setEmailState({
+              onChange={(e) => setEmailState({
                 ...emailState,
                 inputValueEmail: e.target.value,
               })}
+              onBlur={(e) => checkEmailValidation(e)}
               label="Usuario"
               type="email"
               helperText={emailState.helperTextEmail}
@@ -98,10 +99,11 @@ export const SignIn = () => {
             <TextField
               status={passState.fieldStatusPass}
               name="Password"
-              onBlur={(e) => setPassState({
+              onChange={(e) => setPassState({
                 ...passState,
                 inputValuePass: e.target.value,
               })}
+              onBlur={(e) => checkPassValidation(e)}
               label="Contraseña"
               type={passHidden ? 'password' : 'text'}
               rightIcon={passHidden ? ClosedEyeSVG : EyeSVG}

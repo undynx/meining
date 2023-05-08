@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
@@ -53,8 +53,8 @@ export const SignUp = () => {
   const [passConfirmationState, setPassConfirmationState] = useState<PassType>(initPassState);
   const [signupInfo, setSignupInfo] = useState<SignUpFormType>(initSignUpState);
 
-  useEffect(() => {
-    if (!emailState.inputValueEmail.match(mailFormat) && emailState.inputValueEmail !== '') {
+  const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!e.target.value.match(mailFormat) && e.target.value !== '') {
       setEmailState({
         ...emailState,
         helperTextEmail: 'Debe ser un email válido',
@@ -67,16 +67,16 @@ export const SignUp = () => {
         fieldStatusEmail: TextFieldStatus.default,
       });
     }
-  }, [emailState.inputValueEmail]);
+  };
 
-  useEffect(() => {
-    if (passState.inputValuePass.length < 8 && passState.inputValuePass !== '') {
+  const checkPassValidation = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value.length < 8 && e.target.value !== '') {
       setPassState({
         ...passState,
         helperTextPass: 'La contraseña debe ser más larga que 8 caracteres',
         fieldStatusPass: TextFieldStatus.error,
       });
-    } else if (!passState.inputValuePass.match(passwordFormat) && passState.inputValuePass !== '') {
+    } else if (!e.target.value.match(passwordFormat) && e.target.value !== '') {
       setPassState({
         ...passState,
         helperTextPass: 'La contraseña debe tener al menos un caracter especial y un caracter alfanumerico',
@@ -89,10 +89,10 @@ export const SignUp = () => {
         fieldStatusPass: TextFieldStatus.default,
       });
     }
-  }, [passState.inputValuePass]);
+  };
 
-  useEffect(() => {
-    if (passState.inputValuePass !== '' && passConfirmationState.inputValuePass !== '' && passState.inputValuePass !== passConfirmationState.inputValuePass) {
+  const checkPassConfirmationValidation = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value !== '' && e.target.value !== '' && passState.inputValuePass !== e.target.value) {
       setPassConfirmationState({
         ...passConfirmationState,
         helperTextPass: 'Las contraseñas deben ser iguales',
@@ -105,7 +105,7 @@ export const SignUp = () => {
         fieldStatusPass: TextFieldStatus.default,
       });
     }
-  }, [passConfirmationState.inputValuePass, passState.inputValuePass]);
+  };
 
   return (
     <div className={styles.formContainer}>
@@ -114,16 +114,24 @@ export const SignUp = () => {
 
       <TextField
         className={styles.textField}
-        name="nombre"
+        name="Name"
         label="Nombre"
         type="text"
+        onChange={(e) => setSignupInfo({
+          ...signupInfo,
+          name: e.target.value,
+        })}
       />
 
       <TextField
         className={styles.textField}
-        name="apellido"
+        name="Lastname"
         label="Apellido"
         type="text"
+        onChange={(e) => setSignupInfo({
+          ...signupInfo,
+          lastname: e.target.value,
+        })}
       />
 
       <TextField
@@ -132,12 +140,20 @@ export const SignUp = () => {
         label="Email"
         type="text"
         status={emailState.fieldStatusEmail}
-        onBlur={(e) => setEmailState({
-          ...emailState,
-          inputValueEmail: e.target.value,
-        })}
+        onChange={(e) => {
+          setEmailState({
+            ...emailState,
+            inputValueEmail: e.target.value,
+          });
+          setSignupInfo({
+            ...signupInfo,
+            email: e.target.value,
+          });
+        }}
+        onBlur={(e) => checkEmailValidation(e)}
         helperText={emailState.helperTextEmail}
         helperIcon={xSVG}
+        errorMsg
       />
 
       <TextField
@@ -146,10 +162,17 @@ export const SignUp = () => {
         name="Password"
         label="Contraseña"
         type={passState.hidden ? 'password' : 'text'}
-        onBlur={(e) => setPassState({
-          ...passState,
-          inputValuePass: e.target.value,
-        })}
+        onChange={(e) => {
+          setPassState({
+            ...passState,
+            inputValuePass: e.target.value,
+          });
+          setSignupInfo({
+            ...signupInfo,
+            password: e.target.value,
+          });
+        }}
+        onBlur={(e) => checkPassValidation(e)}
         rightIcon={passState.hidden ? ClosedEyeSVG : EyeSVG}
         onRightIconClick={() => setPassState({
           ...passState,
@@ -162,13 +185,15 @@ export const SignUp = () => {
 
       <TextField
         className={styles.textField}
+        status={passConfirmationState.fieldStatusPass}
         name="Password confirmation"
         label="Confirmacion de contraseña"
         type={passConfirmationState.hidden ? 'password' : 'text'}
-        onBlur={(e) => setPassConfirmationState({
+        onChange={(e) => setPassConfirmationState({
           ...passConfirmationState,
           inputValuePass: e.target.value,
         })}
+        onBlur={(e) => checkPassConfirmationValidation(e)}
         rightIcon={passConfirmationState.hidden ? ClosedEyeSVG : EyeSVG}
         onRightIconClick={() => setPassConfirmationState({
           ...passConfirmationState,
@@ -182,7 +207,9 @@ export const SignUp = () => {
       <Button
         className={`${styles.btnIngresar} ${styles.textField}`}
         disabled={
-          emailState.inputValueEmail === ''
+          signupInfo.name === ''
+          || signupInfo.lastname === ''
+          || signupInfo.email === ''
           || emailState.fieldStatusEmail === TextFieldStatus.error
           || passState.inputValuePass === ''
           || passState.fieldStatusPass === TextFieldStatus.error

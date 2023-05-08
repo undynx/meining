@@ -1,10 +1,9 @@
 @use '../../assets/stylesheets/text-styles.scss';
 @import '../../assets/stylesheets/colors';
-@import '../../assets/stylesheets/variables/variables.scss';
 
 .container {
   display: flex;
-  height: $min-height;
+  height: 100vh;
 }
 
 .imgDivision {
@@ -32,7 +31,7 @@
   width: 470px;
 }
 
-.btnHighlighted{
+.btnHighlighted {
   font-weight: bold;
   color: $primary-color-60;
 }

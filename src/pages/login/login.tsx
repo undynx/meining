@@ -3,30 +3,6 @@ import { SignIn } from 'common/signin/index';
 import { SignUp } from 'common/signup/index';
 import styles from './login.module.scss';
 
-type EmailType = {
-  inputValueEmail: string,
-  helperTextEmail: string,
-  fieldStatusEmail: TextFieldStatus,
-};
-
-const initEmailState = {
-  inputValueEmail: '',
-  helperTextEmail: '',
-  fieldStatusEmail: TextFieldStatus.default,
-};
-
-type PassType = {
-  inputValuePass: string,
-  helperTextPass: string,
-  fieldStatusPass: TextFieldStatus,
-};
-
-const initPassState = {
-  inputValuePass: '',
-  helperTextPass: '',
-  fieldStatusPass: TextFieldStatus.default,
-};
-
 export const Login = () => {
   const [signUp, setSignUp] = useState(true);
 
