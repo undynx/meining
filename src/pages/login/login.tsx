@@ -42,11 +42,8 @@ export const Login = () => {
           {signUp ? <SignUp /> : <SignIn />}
         </div>
 
-        <div className={styles.imgDivision} />
       </div>
-
       <div className={styles.imgDivision} />
-
     </div>
   );
 };
