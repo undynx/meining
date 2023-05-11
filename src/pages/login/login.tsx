@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
@@ -31,10 +31,25 @@ const initPassState = {
   fieldStatusPass: TextFieldStatus.default,
 };
 
+type LoginInfoType = {
+  email: string,
+  password: string,
+};
+
+const initLoginInfo = {
+  email: '',
+  password: '',
+};
+
 export const Login = () => {
   const [emailState, setEmailState] = useState<EmailType>(initEmailState);
   const [passState, setPassState] = useState<PassType>(initPassState);
   const [passHidden, setPassHidden] = useState('password');
+  const [loginInfo, setLoginInfo] = useState<LoginInfoType>(initLoginInfo);
+
+  useEffect(() => {
+    localStorage.setItem(`${loginInfo.email}`, JSON.stringify(loginInfo));
+  }, [loginInfo]);
 
   const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!e.target.value.match(mailFormat) && e.target.value !== '') {
@@ -130,6 +145,13 @@ export const Login = () => {
           <Button
             className={`${styles.btnIngresar} ${styles.textField}`}
             disabled={(emailState.inputValueEmail === '' || passState.inputValuePass === '')}
+            onClick={() => {
+              setLoginInfo({
+                ...loginInfo,
+                email: emailState.inputValueEmail,
+                password: passState.inputValuePass,
+              });
+            }}
           >
             Ingresar
           </Button>
