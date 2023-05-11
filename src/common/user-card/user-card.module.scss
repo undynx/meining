@@ -2,13 +2,14 @@
 @use '../../assets/stylesheets/mixins' as *;
 
 .usercard{
-  width: 400px;
+  width: 350px;
   height: 150px;
   display: flex;
   flex-direction: row;
   padding: 15px;
   border-radius: 10px;
   border: solid $primary-color-60;
+  margin: 10px;
 }
 
 .profilePicture{

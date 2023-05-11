@@ -3,6 +3,7 @@ import { Home } from 'pages/home';
 import { About } from 'pages/about';
 import { NotFound } from 'pages/not-found';
 import { UserList } from 'pages/user-list';
+import { UserCard } from 'common/user-card';
 import { RouteName } from './routes';
 
 // NOTE: this object is needed to avoid circular dependencies.
@@ -13,6 +14,7 @@ const RouteComponent = {
   [RouteName.About]: About,
   [RouteName.Login]: Login,
   [RouteName.UserList]: UserList,
+  [RouteName.UserCard]: UserCard,
   [RouteName.NotFound]: NotFound,
 };
 
