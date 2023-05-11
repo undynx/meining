@@ -74,7 +74,7 @@ export const Login = () => {
     }
   };
 
-  const unmaskPass = function unmask() {
+  const unmaskPass = () => {
     if (passHidden === 'text') {
       return ClosedEyeSVG;
     }
