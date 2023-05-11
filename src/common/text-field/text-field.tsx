@@ -16,13 +16,15 @@ export interface TextFieldProps {
   label?: string;
   leftIcon?: React.FunctionComponent;
   name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onRightIconClick?: () => void;
   placeholder?: string;
   rightIcon?: React.FunctionComponent;
   status?: TextFieldStatus;
   type?: HTMLInputTypeAttribute;
   value?: string;
+  errorMsg?: boolean;
 }
 
 export const TextField = ({
@@ -34,12 +36,14 @@ export const TextField = ({
   leftIcon,
   name,
   onChange,
+  onBlur,
   onRightIconClick,
   placeholder,
   rightIcon,
   status = TextFieldStatus.default,
   type = 'text',
   value,
+  errorMsg = false,
 }: TextFieldProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const focusOnInput = () => {
@@ -82,6 +86,7 @@ export const TextField = ({
           id={name}
           name={name}
           onChange={onChange}
+          onBlur={onBlur}
           placeholder={placeholder}
           ref={inputRef}
           type={type}
@@ -91,9 +96,9 @@ export const TextField = ({
       {helperText && (
         <div className={classnames(styles.helperText, styles[status])}>
           {HelperIcon && (
-          <div className={classnames(styles.helperIcon, styles[status])}>
-            <HelperIcon data-testid="helper-icon" />
-          </div>
+            <div className={classnames(styles.helperIcon, styles[status], errorMsg ? styles.iconError : '')}>
+              <HelperIcon data-testid="helper-icon" />
+            </div>
           )}
           <span>{helperText}</span>
         </div>

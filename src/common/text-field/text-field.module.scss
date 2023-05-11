@@ -40,6 +40,12 @@ $helper-colors: (
   color: $text-neutral-30;
 }
 
+.iconError{
+  display: flex;
+  padding-right: 5px;
+  filter: invert(42%) sepia(68%) saturate(1466%) hue-rotate(345deg) brightness(100%) contrast(92%);
+}
+
 .inputStyle {
   padding: 12px;
   width: 100%;
@@ -97,19 +103,6 @@ $helper-colors: (
 .helperText {
   display: flex;
   align-items: center;
-
-  @each $color,
-  $properties in $helper-colors {
-    &.#{$color} {
-      color: list.nth($properties, 1);
-    }
-  }
-}
-
-.helperIcon {
-  display: flex;
-  width: 16px;
-  margin-right: 4px;
 
   @each $color,
   $properties in $helper-colors {

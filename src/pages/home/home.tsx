@@ -9,6 +9,7 @@ import { Modal } from 'common/modal';
 import { ModalSizes } from 'common/modal/modal';
 import { TextField, TextFieldStatus } from 'common/text-field';
 import { TextArea } from 'common/text-area';
+import { mailFormat } from 'helpers/utils';
 import styles from './home.module.scss';
 import { ReactComponent as MailSVG } from '../../assets/icons/mail.svg';
 import { ReactComponent as CloseSVG } from '../../assets/icons/close.svg';
@@ -26,8 +27,7 @@ const Home = () => {
   const charactersLimit = 35;
 
   useEffect(() => {
-    const mailformat = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-    if (!inputState.match(mailformat) && inputState !== '') {
+    if (!inputState.match(mailFormat) && inputState !== '') {
       setHelperIState('Not a valid email format');
     } else {
       setHelperIState('');
