@@ -4,11 +4,6 @@ export enum RouteName {
   Home = 'home',
   About = 'about',
   Login = 'login',
-<<<<<<< Updated upstream
-=======
-  UserList = 'userlist',
-  UserCard = 'usercard',
->>>>>>> Stashed changes
   NotFound = 'notFound',
 }
 
