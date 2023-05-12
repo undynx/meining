@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { UserCard } from 'common/user-card';
 import { Spinner } from 'common/spinner';
+import { AppLink } from 'routes/app-link';
+import { RouteName } from 'routes/routes';
 import styles from './user-list.module.scss';
 
 type UserType = {
@@ -15,7 +17,7 @@ export const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState<UserType[]>([]);
 
-  const getUSersData = async () => {
+  const getUsersData = async () => {
     fetch('https://dummyapi.io/data/v1/user?limit=10', {
       headers: {
         'app-id': '645945fa70a1298f9606d753',
@@ -28,7 +30,7 @@ export const UserList = () => {
   };
 
   useEffect(() => {
-    getUSersData();
+    getUsersData();
   }, []);
 
   const getGender = (title: string) => {
@@ -55,15 +57,19 @@ export const UserList = () => {
               && users.map((user) => {
                 if (user !== null) {
                   return (
-
-                    <UserCard
-                      key={user.id}
-                      name={user.firstName}
-                      lastname={user.lastName}
-                      imageUrl={user.picture}
-                      gender={getGender(user.title)}
-                    />
-
+                    <AppLink
+                      routeName={RouteName.UserProfile}
+                      pathParams={{ id: user.id }}
+                      className={styles.userLinks}
+                    >
+                      <UserCard
+                        key={user.id}
+                        name={user.firstName}
+                        lastname={user.lastName}
+                        imageUrl={user.picture}
+                        gender={getGender(user.title)}
+                      />
+                    </AppLink>
                   );
                 }
 

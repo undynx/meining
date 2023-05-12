@@ -2,6 +2,7 @@ import { Login } from 'pages/login/login';
 import { Home } from 'pages/home';
 import { About } from 'pages/about';
 import { UserList } from 'pages/user-list';
+import { UserProfile } from 'pages/user-profile';
 import { NotFound } from 'pages/not-found';
 import { RouteName } from './routes';
 
@@ -13,6 +14,7 @@ const RouteComponent = {
   [RouteName.About]: About,
   [RouteName.Login]: Login,
   [RouteName.UserList]: UserList,
+  [RouteName.UserProfile]: UserProfile,
   [RouteName.NotFound]: NotFound,
 };
 
