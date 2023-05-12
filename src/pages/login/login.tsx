@@ -1,163 +1,45 @@
-import { useState, useEffect } from 'react';
-import { Button } from 'common/button';
-import { TextField, TextFieldStatus } from 'common/text-field';
-import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
-import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
-import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
-import { mailFormat, passwordFormat } from '../../helpers/utils.js';
+import React, { useState } from 'react';
+import { SignIn } from 'common/sign-in/index';
+import { SignUp } from 'common/sign-up/index';
 import styles from './login.module.scss';
 
-type EmailType = {
-  inputValueEmail: string,
-  helperTextEmail: string,
-  fieldStatusEmail: TextFieldStatus,
-};
-
-const initEmailState = {
-  inputValueEmail: '',
-  helperTextEmail: '',
-  fieldStatusEmail: TextFieldStatus.default,
-};
-
-type PassType = {
-  inputValuePass: string,
-  helperTextPass: string,
-  fieldStatusPass: TextFieldStatus,
-};
-
-const initPassState = {
-  inputValuePass: '',
-  helperTextPass: '',
-  fieldStatusPass: TextFieldStatus.default,
-};
-
-type LoginInfoType = {
-  email: string,
-  password: string,
-};
-
-const initLoginInfo = {
-  email: '',
-  password: '',
-};
-
 export const Login = () => {
-  const [emailState, setEmailState] = useState<EmailType>(initEmailState);
-  const [passState, setPassState] = useState<PassType>(initPassState);
-  const [passHidden, setPassHidden] = useState('password');
-  const [loginInfo, setLoginInfo] = useState<LoginInfoType>(initLoginInfo);
-
-  useEffect(() => {
-    localStorage.setItem(`${loginInfo.email}`, JSON.stringify(loginInfo));
-  }, [loginInfo]);
-
-  const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!e.target.value.match(mailFormat) && e.target.value !== '') {
-      setEmailState({
-        ...emailState,
-        helperTextEmail: 'Debe ser un email válido',
-        fieldStatusEmail: TextFieldStatus.error,
-      });
-    } else {
-      setEmailState({
-        ...emailState,
-        helperTextEmail: '',
-        fieldStatusEmail: TextFieldStatus.default,
-      });
-    }
-  };
-
-  const checkPassValidation = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (e.target.value.length < 8 && e.target.value !== '') {
-      setPassState({
-        ...passState,
-        helperTextPass: 'La contraseña debe ser más larga que 8 caracteres',
-        fieldStatusPass: TextFieldStatus.error,
-      });
-    } else if (!e.target.value.match(passwordFormat) && e.target.value !== '') {
-      setPassState({
-        ...passState,
-        helperTextPass: 'La contraseña debe tener al menos un caracter especial y un caracter alfanumerico',
-        fieldStatusPass: TextFieldStatus.error,
-      });
-    } else {
-      setPassState({
-        ...passState,
-        helperTextPass: '',
-        fieldStatusPass: TextFieldStatus.default,
-      });
-    }
-  };
-
-  const unmaskPass = () => {
-    if (passHidden === 'text') {
-      return ClosedEyeSVG;
-    }
-    return EyeSVG;
-  };
+  const [signUp, setSignUp] = useState(true);
 
   return (
+
     <div className={styles.container}>
-
       <div className={styles.formDivision}>
-        <div className={styles.formContainer}>
-          <img src="src/assets/icons/barco.svg" alt="Imagen de un barco" className={styles.boatIcon} />
-
-          <h1 className={styles.header1}>Iniciar sesión</h1>
-          <TextField
-            status={emailState.fieldStatusEmail}
-            name="email"
-            onChange={(e) => setEmailState({
-              ...emailState,
-              inputValueEmail: e.target.value,
-            })}
-            onBlur={(e) => checkEmailValidation(e)}
-            label="Usuario"
-            type="email"
-            helperText={emailState.helperTextEmail}
-            helperIcon={xSVG}
-            errorMsg
-          />
-
-          <TextField
-            status={passState.fieldStatusPass}
-            name="password"
-            onChange={(e) => setPassState({
-              ...passState,
-              inputValuePass: e.target.value,
-            })}
-            onBlur={(e) => checkPassValidation(e)}
-            label="Contraseña"
-            type={passHidden}
-            rightIcon={unmaskPass()}
-            onRightIconClick={() => {
-              if (passHidden === 'text') {
-                setPassHidden('password');
-              } else {
-                setPassHidden('text');
-              }
-            }}
-            helperText={passState.helperTextPass}
-            helperIcon={xSVG}
-            errorMsg
-          />
-
-          <Button
-            className={`${styles.btnIngresar} ${styles.textField}`}
-            disabled={(emailState.inputValueEmail === '' || passState.inputValuePass === '')}
+        <div className={styles.buttonDiv}>
+          <button
             onClick={() => {
-              setLoginInfo({
-                ...loginInfo,
-                email: emailState.inputValueEmail,
-                password: passState.inputValuePass,
-              });
+              setSignUp(true);
             }}
+            className={signUp ? styles.btnHighlighted : ''}
           >
-            Ingresar
-          </Button>
+            Sign Up
+          </button>
+          <span> | </span>
+          <button
+            onClick={() => {
+              setSignUp(false);
+            }}
+            className={signUp ? '' : styles.btnHighlighted}
+          >
+            Sign In
+          </button>
+        </div>
 
-          <a className={`${styles.textField} ${styles.link}`} href="http://www.google.com">¿Olvidaste tu contraseña?</a>
+        <div className={styles.form}>
+          <div className={styles.imgContainer}>
+            <img
+              src="src/assets/icons/boat.svg"
+              alt="A boat"
+              className={styles.boatIcon}
+            />
+          </div>
 
+          {signUp ? <SignUp /> : <SignIn />}
         </div>
       </div>
 

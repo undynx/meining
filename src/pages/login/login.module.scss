@@ -16,35 +16,23 @@
 
 .formDivision {
   flex: 1;
+  width: 470px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.formContainer {
-  width: 470px;
-}
-
-.btnIngresar {
-  width: 470px;
-  margin-top: 20px;
-}
-
-.header1 {
-  margin-bottom: 60px;
-}
-
-.link {
-  text-decoration: none;
-  color: $primary-color-60;
-  font-weight: 600;
-  font-size: 16px;
-  display: block;
-  text-align: center;
-}
-
 .boatIcon {
-  width: 30%;
-  margin-bottom: 20px;
+  width: 20%;
+  margin-bottom: 10px;
+}
+
+.btnHighlighted {
+  font-weight: bold;
+  color: $primary-color-60;
+}
+
+.imgContainer{
+  width: 470px;
 }
