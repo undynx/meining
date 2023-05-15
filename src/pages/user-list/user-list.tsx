@@ -18,6 +18,7 @@ type UserType = {
 export const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState<UserType[]>([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const getUsersData = async () => {
     fetch('https://dummyapi.io/data/v1/user?limit=10', {
@@ -60,34 +61,47 @@ export const UserList = () => {
             <div className={styles.searchBarContainer}>
               <TextField
                 name="Search bar"
-                onChange={() => { }}
+                onChange={(e) => setSearchValue(e.target.value)}
                 placeholder="Search"
                 className={styles.searchBar}
                 leftIcon={SearchSVG}
               />
             </div>
             <div className={styles.cardContainer}>
-              {users
-                && users.map((user) => {
-                  if (user !== null) {
-                    return (
-                      <AppLink
-                        routeName={RouteName.UserProfile}
-                        pathParams={{ id: user.id }}
-                        className={styles.userLinks}
-                      >
-                        <UserCard
-                          key={user.id}
-                          name={user.firstName}
-                          lastname={user.lastName}
-                          imageUrl={user.picture}
-                          gender={getGender(user.title)}
-                        />
-                      </AppLink>
-                    );
-                  }
-                  return null;
-                })}
+              {searchValue === '' ? users
+                && users.map((user) => (
+                  <AppLink
+                    routeName={RouteName.UserProfile}
+                    pathParams={{ id: user.id }}
+                    className={styles.userLinks}
+                  >
+                    <UserCard
+                      key={user.id}
+                      name={user.firstName}
+                      lastname={user.lastName}
+                      imageUrl={user.picture}
+                      gender={getGender(user.title)}
+                    />
+                  </AppLink>
+                ))
+                : users && users.filter((user) => user
+                  .firstName.toLowerCase().match(searchValue.toLowerCase())
+                || user.lastName.toLowerCase().match(searchValue.toLowerCase()))
+                  .map((filteredUser: UserType) => (
+                    <AppLink
+                      routeName={RouteName.UserProfile}
+                      pathParams={{ id: filteredUser.id }}
+                      className={styles.userLinks}
+                    >
+                      <UserCard
+                        key={filteredUser.id}
+                        name={filteredUser.firstName}
+                        lastname={filteredUser.lastName}
+                        imageUrl={filteredUser.picture}
+                        gender={getGender(filteredUser.title)}
+                      />
+                    </AppLink>
+                  ))}
             </div>
           </div>
 
