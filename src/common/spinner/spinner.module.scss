@@ -1,0 +1,15 @@
+@use '../../assets/stylesheets/colors' as *;
+@use '../../assets/stylesheets/mixins' as *;
+@use '../../assets/stylesheets/variables' as *;
+
+.spinnerImg {
+  width: 200px;
+  height: 200px;
+}
+
+.imgContainer {
+  min-height: $min-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

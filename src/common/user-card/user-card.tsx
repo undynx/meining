@@ -12,23 +12,21 @@ export const UserCard = ({
 }: UserCardProps) => (
   <div className={styles.usercard}>
     <img src={imageUrl} alt="profile" className={styles.profilePicture} />
-    <div className={styles.profileInfo}>
-      <table>
-        <tbody>
-          <tr>
-            <td className={styles.data}>Nombre</td>
-            <td>{name}</td>
-          </tr>
-          <tr>
-            <td className={styles.data}>Apellido</td>
-            <td>{lastname}</td>
-          </tr>
-          <tr>
-            <td className={styles.data}>Gender</td>
-            <td>{gender}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table className={styles.profileInfo}>
+      <tbody>
+        <tr>
+          <td className={styles.data}>Nombre</td>
+          <td>{name}</td>
+        </tr>
+        <tr>
+          <td className={styles.data}>Apellido</td>
+          <td>{lastname}</td>
+        </tr>
+        <tr>
+          <td className={styles.data}>Gender</td>
+          <td>{gender}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 );

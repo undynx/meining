@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { UserCard } from 'common/user-card';
+import { Spinner } from 'common/spinner';
 import styles from './user-list.module.scss';
 
 type UserType = {
@@ -30,7 +31,7 @@ export const UserList = () => {
     getUSersData();
   }, []);
 
-  function getGender(title: string) {
+  const getGender = (title: string) => {
     let gender: string;
     if (title === 'ms' || title === 'miss') {
       gender = 'Female';
@@ -40,15 +41,13 @@ export const UserList = () => {
       gender = 'Unknown';
     }
     return gender;
-  }
+  };
 
   return (
     <div className={styles.container}>
       {isLoading
         ? (
-          <div className={styles.imgContainer}>
-            <img src="src/assets/icons/spinner.gif" alt="Spinner" className={styles.spinnerImg} />
-          </div>
+          <Spinner />
         )
         : (
           <div className={styles.cardContainer}>
