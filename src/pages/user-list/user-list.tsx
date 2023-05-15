@@ -3,6 +3,8 @@ import { UserCard } from 'common/user-card';
 import { Spinner } from 'common/spinner';
 import { AppLink } from 'routes/app-link';
 import { RouteName } from 'routes/routes';
+import { TextField } from 'common/text-field';
+import { ReactComponent as SearchSVG } from '../../assets/icons/search.svg';
 import styles from './user-list.module.scss';
 
 type UserType = {
@@ -47,37 +49,49 @@ export const UserList = () => {
 
   return (
     <div className={styles.container}>
+
       {isLoading
         ? (
           <Spinner />
         )
         : (
-          <div className={styles.cardContainer}>
-            {users
-              && users.map((user) => {
-                if (user !== null) {
-                  return (
-                    <AppLink
-                      routeName={RouteName.UserProfile}
-                      pathParams={{ id: user.id }}
-                      className={styles.userLinks}
-                    >
-                      <UserCard
-                        key={user.id}
-                        name={user.firstName}
-                        lastname={user.lastName}
-                        imageUrl={user.picture}
-                        gender={getGender(user.title)}
-                      />
-                    </AppLink>
-                  );
-                }
 
-                return null;
-              })}
+          <div className={styles.listContainer}>
+            <div className={styles.searchBarContainer}>
+              <TextField
+                name="Search bar"
+                onChange={() => { }}
+                placeholder="Search"
+                className={styles.searchBar}
+                leftIcon={SearchSVG}
+              />
+            </div>
+            <div className={styles.cardContainer}>
+              {users
+                && users.map((user) => {
+                  if (user !== null) {
+                    return (
+                      <AppLink
+                        routeName={RouteName.UserProfile}
+                        pathParams={{ id: user.id }}
+                        className={styles.userLinks}
+                      >
+                        <UserCard
+                          key={user.id}
+                          name={user.firstName}
+                          lastname={user.lastName}
+                          imageUrl={user.picture}
+                          gender={getGender(user.title)}
+                        />
+                      </AppLink>
+                    );
+                  }
+                  return null;
+                })}
+            </div>
           </div>
+
         )}
     </div>
-
   );
 };

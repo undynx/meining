@@ -13,3 +13,14 @@
   text-decoration: none;
   color: $text-neutral-40;
 }
+
+.searchBarContainer{
+  width: calc(100% - 50px);
+  margin-top: 25px;
+}
+
+.listContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
