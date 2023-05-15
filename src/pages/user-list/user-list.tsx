@@ -22,7 +22,7 @@ export const UserList = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const getUsersData = async () => {
-    fetch('https://dummyapi.io/data/v1/user', {
+    fetch('https://dummyapi.io/data/v1/user?limit=20', {
       headers: {
         'app-id': '645945fa70a1298f9606d753',
       },
