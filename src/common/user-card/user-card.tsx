@@ -16,39 +16,37 @@ export const UserCard = ({
 }: UserCardProps) => (
   <div className={enlarged ? styles.usercardEnlarged : styles.usercard}>
     <img src={imageUrl} alt="profile" className={styles.profilePicture} />
-    <div className={styles.profileInfo}>
-      <table>
-        <tbody>
+    <table className={styles.profileInfo}>
+      <tbody>
+        <tr>
+          <td className={styles.data}>Nombre</td>
+          <td>{name}</td>
+        </tr>
+        <tr>
+          <td className={styles.data}>Apellido</td>
+          <td>{lastname}</td>
+        </tr>
+        <tr>
+          <td className={styles.data}>Gender</td>
+          <td>{gender}</td>
+        </tr>
+        {enlarged && (
+        <>
           <tr>
-            <td className={styles.data}>Nombre</td>
-            <td>{name}</td>
+            <td className={styles.data}>Email</td>
+            <td>{email}</td>
           </tr>
           <tr>
-            <td className={styles.data}>Apellido</td>
-            <td>{lastname}</td>
+            <td className={styles.data}>Phone</td>
+            <td>{phone}</td>
           </tr>
           <tr>
-            <td className={styles.data}>Gender</td>
-            <td>{gender}</td>
+            <td className={styles.data}>Date of Birth</td>
+            <td>{dateOfBirth}</td>
           </tr>
-          {enlarged && (
-            <>
-              <tr>
-                <td className={styles.data}>Email</td>
-                <td>{email}</td>
-              </tr>
-              <tr>
-                <td className={styles.data}>Phone</td>
-                <td>{phone}</td>
-              </tr>
-              <tr>
-                <td className={styles.data}>Date of Birth</td>
-                <td>{dateOfBirth}</td>
-              </tr>
-            </>
-          )}
-        </tbody>
-      </table>
-    </div>
+        </>
+        )}
+      </tbody>
+    </table>
   </div>
 );
