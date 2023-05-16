@@ -1,0 +1,28 @@
+@use '../../assets/stylesheets/text-styles.scss';
+@import '../../assets/stylesheets/colors';
+
+.formContainer {
+  width: 470px;
+}
+
+.btnLogin {
+  width: 470px;
+  margin-top: 20px;
+}
+
+.header1 {
+  margin-bottom: 20px;
+}
+
+.textField {
+  margin-bottom: 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: $primary-color-60;
+  font-weight: 600;
+  font-size: 16px;
+  display: block;
+  text-align: center;
+}
