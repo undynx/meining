@@ -4,8 +4,8 @@ export enum RouteName {
   Home = 'home',
   About = 'about',
   Login = 'login',
-  UserList = 'userlist',
-  UserProfile = 'userprofile',
+  UserList = 'userList',
+  UserProfile = 'userProfile',
   NotFound = 'notFound',
 }
 

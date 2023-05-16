@@ -31,7 +31,7 @@ export const UserCard = ({
             <td className={styles.data}>Gender</td>
             <td>{gender}</td>
           </tr>
-          {enlarged ? (
+          {enlarged && (
             <>
               <tr>
                 <td className={styles.data}>Email</td>
@@ -46,7 +46,7 @@ export const UserCard = ({
                 <td>{dateOfBirth}</td>
               </tr>
             </>
-          ) : ''}
+          )}
         </tbody>
       </table>
     </div>
