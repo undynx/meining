@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { UserCard } from 'common/user-card';
 import { Spinner } from 'common/spinner';
 import { AppLink } from 'routes/app-link';
 import { RouteName } from 'routes/routes';
 import { TextField } from 'common/text-field';
+import debounce from 'lodash.debounce';
 import { ReactComponent as SearchSVG } from '../../assets/icons/search.svg';
 import styles from './user-list.module.scss';
 
@@ -48,6 +49,12 @@ export const UserList = () => {
     return gender;
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  const debouncedResults = useMemo(() => debounce(handleChange, 1000), []);
+
   return (
     <div className={styles.container}>
 
@@ -61,7 +68,7 @@ export const UserList = () => {
             <div className={styles.searchBarContainer}>
               <TextField
                 name="Search bar"
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={debouncedResults}
                 placeholder="Search"
                 className={styles.searchBar}
                 leftIcon={SearchSVG}
