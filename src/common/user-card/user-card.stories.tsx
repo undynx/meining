@@ -14,3 +14,10 @@ Default.args = {
   lastname: 'LastName',
   gender: 'Female',
 };
+
+export const withImage = Template.bind({});
+withImage.args = {
+  name: 'Name',
+  lastname: 'LastName',
+  imageUrl: 'https://i.imgur.com/6SPDjNQ_d.webp',
+};
