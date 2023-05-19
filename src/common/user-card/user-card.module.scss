@@ -12,6 +12,17 @@
   margin: 10px;
 }
 
+.usercardEnlarged {
+  width: calc(100% - 20px);
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  border-radius: 10px;
+  border: solid $primary-color-60;
+  margin: 10px;
+}
+
 .profilePicture {
   height: 100%;
   border-radius: 100%;
@@ -26,4 +37,5 @@
 
 .data {
   font-weight: bold;
+  padding-right: 10px;
 }

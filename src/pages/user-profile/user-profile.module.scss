@@ -1,0 +1,27 @@
+@use '../../assets/stylesheets/colors' as *;
+@use '../../assets/stylesheets/mixins' as *;
+@use '../../assets/stylesheets/variables' as *;
+
+.imgContainer {
+  min-height: $min-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinnerImg {
+  width: 200px;
+  height: 200px;
+}
+
+.cardContainer {
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.userLinks {
+  text-decoration: none;
+  color: $text-neutral-40;
+}

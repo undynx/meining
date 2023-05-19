@@ -4,7 +4,8 @@ export enum RouteName {
   Home = 'home',
   About = 'about',
   Login = 'login',
-  UserList = 'userlist',
+  UserList = 'userList',
+  UserProfile = 'userProfile',
   NotFound = 'notFound',
 }
 
@@ -67,6 +68,11 @@ const ROUTES = [
   {
     name: RouteName.UserList,
     path: '/users',
+    exact: true,
+  },
+  {
+    name: RouteName.UserProfile,
+    path: '/users/:id',
     exact: true,
   },
   {
