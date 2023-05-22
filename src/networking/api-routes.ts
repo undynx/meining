@@ -4,6 +4,8 @@
 */
 const API_ROUTES = {
   EXAMPLE: '/example',
+  SIGNUP: '/signup',
+  LOGIN: '/login',
 };
 
 export { API_ROUTES };

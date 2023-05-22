@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import { SignInController } from 'networking/controllers/sign-in-controller';
+
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
@@ -23,6 +28,29 @@ export const SignIn = () => {
   const [emailState, setEmailState] = useState<EmailType>(initEmailState);
   const [passState, setPassState] = useState('');
   const [passHidden, setPassHidden] = useState(true);
+  const navigate = useNavigate();
+
+  const notifyOk = () => toast.success('Usuario loggeado correctamente');
+  const notifyErr = () => toast.error('Error');
+
+  const loginUser = async () => {
+    try {
+      const userSignIn: SignIn = {
+        email: emailState.inputValueEmail,
+        password: passState,
+      };
+
+      await SignInController.signIn(userSignIn);
+
+      notifyOk();
+
+      setTimeout(() => {
+        navigate('/users');
+      }, 2000);
+    } catch {
+      notifyErr();
+    }
+  };
 
   const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!e.target.value.match(mailFormat) && e.target.value !== '') {
@@ -80,9 +108,12 @@ export const SignIn = () => {
               || passState === ''
               || emailState.fieldStatusEmail === TextFieldStatus.error
             }
+            onClick={() => loginUser()}
           >
             Ingresar
           </Button>
+
+          <ToastContainer />
 
           <a
             className={`${styles.textField} ${styles.link}`}

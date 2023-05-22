@@ -5,6 +5,7 @@ import { AppLink } from 'routes/app-link';
 import { RouteName } from 'routes/routes';
 import { TextField } from 'common/text-field';
 import debounce from 'lodash.debounce';
+import axios from 'axios';
 import { ReactComponent as SearchSVG } from '../../assets/icons/search.svg';
 import styles from './user-list.module.scss';
 
@@ -22,15 +23,17 @@ export const UserList = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const getUsersData = async () => {
-    fetch('https://dummyapi.io/data/v1/user?limit=20', {
-      headers: {
-        'app-id': '645945fa70a1298f9606d753',
-      },
-    }).then((response) => response.json())
-      .then((response) => {
-        setUsers(response.data);
-        setIsLoading(false);
+    try {
+      const response = await axios.get('https://dummyapi.io/data/v1/user', {
+        headers: {
+          'app-id': '645945fa70a1298f9606d753',
+        },
       });
+      setIsLoading(false);
+      setUsers(response.data.data);
+    } catch {
+      console.log('Error');
+    }
   };
 
   useEffect(() => {
@@ -74,6 +77,7 @@ export const UserList = () => {
               {searchValue === '' ? users
                 && users.map((user) => (
                   <AppLink
+                    key={user.id}
                     routeName={RouteName.UserProfile}
                     pathParams={{ id: user.id }}
                     className={styles.userLinks}
@@ -92,6 +96,7 @@ export const UserList = () => {
                 || user.lastName.toLowerCase().match(searchValue.toLowerCase()))
                   .map((filteredUser: UserType) => (
                     <AppLink
+                      key={filteredUser.id}
                       routeName={RouteName.UserProfile}
                       pathParams={{ id: filteredUser.id }}
                       className={styles.userLinks}

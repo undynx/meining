@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { SignUpController } from 'networking/controllers/sign-up-controller';
+
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
@@ -52,6 +56,25 @@ export const SignUp = () => {
   const [passState, setPassState] = useState<PassType>(initPassState);
   const [passConfirmationState, setPassConfirmationState] = useState<PassType>(initPassState);
   const [signupInfo, setSignupInfo] = useState<SignUpFormType>(initSignUpState);
+
+  const notifyOk = () => toast.success('Usuario creado correctamente');
+  const notifyErr = () => toast.error('Error');
+
+  const createUser = async () => {
+    try {
+      const userSignUp: SignUp = {
+        firstName: signupInfo.name,
+        lastName: signupInfo.lastname,
+        email: signupInfo.email,
+        password: signupInfo.password,
+      };
+
+      await SignUpController.SignUp(userSignUp);
+      notifyOk();
+    } catch {
+      notifyErr();
+    }
+  };
 
   const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!e.target.value.match(mailFormat) && e.target.value !== '') {
@@ -218,8 +241,10 @@ export const SignUp = () => {
         }
         onClick={() => {
           localStorage.setItem(signupInfo.email, signupInfo.password);
+          createUser();
         }}
       >
+        <ToastContainer />
         Crear cuenta
       </Button>
     </div>
