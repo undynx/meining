@@ -1,0 +1,36 @@
+@use '../../assets/stylesheets/text-styles.scss';
+@import '../../assets/stylesheets/colors';
+@import '../../assets/stylesheets/variables/variables';
+
+.navbar{
+  background-color: $primary-color-50;
+  height: 50px;
+  margin: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icons{
+  display: flex;
+  align-items: center;
+}
+.singleIcon{
+  filter: invert(30%) sepia(97%) saturate(473%) hue-rotate(172deg) brightness(92%) contrast(85%);
+  margin: 12px;
+}
+
+.homeIcon{
+  transform: scale(1.3);
+}
+
+.profileIcon{
+  transform: scale(1.1);
+}
+
+.profileDiv{
+  display: flex;
+  align-items: center;
+}
