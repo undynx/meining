@@ -3,7 +3,7 @@ import styles from './user-card.module.scss';
 export interface UserCardProps {
   name: string,
   lastname: string,
-  imageUrl: string,
+  imageUrl?: string,
   gender?: string,
   enlarged?: boolean,
   email?: string,
@@ -15,7 +15,7 @@ export const UserCard = ({
   name, lastname, imageUrl, gender = 'Unkwnown', enlarged = false, email, dateOfBirth, phone,
 }: UserCardProps) => (
   <div className={enlarged ? styles.usercardEnlarged : styles.usercard}>
-    <img src={imageUrl} alt="profile" className={styles.profilePicture} />
+    <img src={imageUrl ? `${imageUrl}` : 'src/assets/icons/profile-default.jpg'} alt="profile" className={styles.profilePicture} />
     <table className={styles.profileInfo}>
       <tbody>
         <tr>
