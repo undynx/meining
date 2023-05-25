@@ -3,7 +3,7 @@ import { UserCard } from 'common/user-card';
 import { Spinner } from 'common/spinner';
 import { AppLink } from 'routes/app-link';
 import { RouteName } from 'routes/routes';
-import { TextField } from 'common/text-field/index';
+import { TextField } from 'common/text-field';
 import debounce from 'lodash.debounce';
 import { ReactComponent as SearchSVG } from '../../assets/icons/search.svg';
 import styles from './user-list.module.scss';
