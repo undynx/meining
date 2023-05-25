@@ -16,7 +16,9 @@ export const Navbar = () => {
       </AppLink>
       <div className={styles.profileDiv}>
         {`Hola, ${state.firstName}`}
-        <ProfileSVG className={`${styles.profileIcon} ${styles.singleIcon}`} />
+        <AppLink routeName={RouteName.MyProfile}>
+          <ProfileSVG className={`${styles.profileIcon} ${styles.singleIcon}`} />
+        </AppLink>
       </div>
     </div>
   );
