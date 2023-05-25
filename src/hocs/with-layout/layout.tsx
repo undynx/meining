@@ -1,8 +1,10 @@
 import React from 'react';
+import { Navbar } from 'common/navbar/index';
 
 enum LayoutType {
   // Add more layout types here
   Default = 'Default',
+  WithNavbar = 'WithNavbar',
 }
 
 type LayoutProps = {
@@ -19,7 +21,14 @@ const Layout = ({ layoutType, children }: LayoutProps) => {
       </>
     );
   }
-  return null;
+
+  return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 };
 
 export { Layout, LayoutType };

@@ -107,7 +107,6 @@ export const UserList = () => {
                   ))}
             </div>
           </div>
-
         )}
     </div>
   );
