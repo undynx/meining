@@ -8,6 +8,7 @@ import { SignUpController } from 'networking/controllers/sign-up-controller';
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
+import { ReactComponent as SmallSpinnerSVG } from '../../assets/icons/small-spinner.svg';
 import { mailFormat, passwordFormat } from '../../helpers/utils.js';
 import styles from './sign-up.module.scss';
 
@@ -56,6 +57,7 @@ export const SignUp = () => {
   const [passState, setPassState] = useState<PassType>(initPassState);
   const [passConfirmationState, setPassConfirmationState] = useState<PassType>(initPassState);
   const [signupInfo, setSignupInfo] = useState<SignUpFormType>(initSignUpState);
+  const [btnIsLoading, setBtnIsLoading] = useState(false);
 
   const notifyOk = () => toast.success('Usuario creado correctamente');
   const notifyErr = () => toast.error('Error');
@@ -70,8 +72,14 @@ export const SignUp = () => {
       };
 
       await SignUpController.SignUp(userSignUp);
+      setTimeout(() => {
+        setBtnIsLoading(false);
+      }, 500);
       notifyOk();
     } catch {
+      setTimeout(() => {
+        setBtnIsLoading(false);
+      }, 500);
       notifyErr();
     }
   };
@@ -241,12 +249,13 @@ export const SignUp = () => {
         }
         onClick={() => {
           localStorage.setItem(signupInfo.email, signupInfo.password);
+          setBtnIsLoading(true);
           createUser();
         }}
       >
-        <ToastContainer />
-        Crear cuenta
+        {btnIsLoading ? <SmallSpinnerSVG className={styles.smallSpinner} /> : 'Crear cuenta'}
       </Button>
+      <ToastContainer />
     </div>
   );
 };

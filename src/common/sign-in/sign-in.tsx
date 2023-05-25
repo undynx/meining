@@ -9,6 +9,7 @@ import { SignInController } from 'networking/controllers/sign-in-controller';
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
+import { ReactComponent as SmallSpinnerSVG } from '../../assets/icons/small-spinner.svg';
 import { mailFormat } from '../../helpers/utils.js';
 import styles from './sign-in.module.scss';
 
@@ -28,6 +29,7 @@ export const SignIn = () => {
   const [emailState, setEmailState] = useState<EmailType>(initEmailState);
   const [passState, setPassState] = useState('');
   const [passHidden, setPassHidden] = useState(true);
+  const [btnIsLoading, setBtnIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const notifyOk = () => toast.success('Usuario loggeado correctamente');
@@ -46,8 +48,12 @@ export const SignIn = () => {
 
       setTimeout(() => {
         navigate('/users');
+        setBtnIsLoading(false);
       }, 2000);
     } catch {
+      setTimeout(() => {
+        setBtnIsLoading(false);
+      }, 500);
       notifyErr();
     }
   };
@@ -108,9 +114,12 @@ export const SignIn = () => {
               || passState === ''
               || emailState.fieldStatusEmail === TextFieldStatus.error
             }
-            onClick={() => loginUser()}
+            onClick={() => {
+              setBtnIsLoading(true);
+              loginUser();
+            }}
           >
-            Ingresar
+            {btnIsLoading ? <SmallSpinnerSVG className={styles.smallSpinner} /> : 'Ingresar'}
           </Button>
 
           <ToastContainer />
