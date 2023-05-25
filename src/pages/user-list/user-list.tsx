@@ -4,6 +4,8 @@ import { Spinner } from 'common/spinner';
 import { AppLink } from 'routes/app-link';
 import { RouteName } from 'routes/routes';
 import { TextField } from 'common/text-field';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
 import { ReactComponent as SearchSVG } from '../../assets/icons/search.svg';
@@ -18,11 +20,14 @@ type UserType = {
 };
 
 export const UserList = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState<UserType[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
+  const notifyErr = () => toast.error('Error');
+
   const getUsersData = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get('https://dummyapi.io/data/v1/user', {
         headers: {
@@ -32,7 +37,8 @@ export const UserList = () => {
       setIsLoading(false);
       setUsers(response.data.data);
     } catch {
-      console.log('Error');
+      setIsLoading(false);
+      notifyErr();
     }
   };
 
@@ -58,61 +64,68 @@ export const UserList = () => {
 
   const debouncedResults = useMemo(() => debounce(handleChange, 1000), []);
 
+  const userCard = (user: UserType) => (
+    <AppLink
+      key={user.id}
+      routeName={RouteName.UserProfile}
+      pathParams={{ id: user.id }}
+      className={styles.userLinks}
+    >
+      <UserCard
+        key={user.id}
+        name={user.firstName}
+        lastname={user.lastName}
+        imageUrl={user.picture}
+        gender={getGender(user.title)}
+      />
+    </AppLink>
+  );
+
+  const cardContainer = () => {
+    if (users) {
+      if (searchValue) {
+        return (
+          users.filter((user) => user.firstName.toLowerCase().match(searchValue.toLowerCase())
+          || user.lastName.toLowerCase().match(searchValue.toLowerCase()))
+            .map((filteredUser: UserType) => (
+              userCard(filteredUser)
+            )));
+      }
+
+      return users.map((user) => (
+        userCard(user)
+      ));
+    }
+
+    return null;
+  };
+
+  if (isLoading) {
+    return (
+      <Spinner />
+    );
+  }
+
   return (
     <div className={styles.container}>
+      <div className={styles.listContainer}>
+        <div className={styles.searchBarContainer}>
 
-      {isLoading ? (<Spinner />)
-        : (
-          <div className={styles.listContainer}>
-            <div className={styles.searchBarContainer}>
-              <TextField
-                name="Search bar"
-                onChange={debouncedResults}
-                placeholder="Search"
-                className={styles.searchBar}
-                leftIcon={SearchSVG}
-              />
-            </div>
-            <div className={styles.cardContainer}>
-              {searchValue === '' ? users
-                && users.map((user) => (
-                  <AppLink
-                    key={user.id}
-                    routeName={RouteName.UserProfile}
-                    pathParams={{ id: user.id }}
-                    className={styles.userLinks}
-                  >
-                    <UserCard
-                      key={user.id}
-                      name={user.firstName}
-                      lastname={user.lastName}
-                      imageUrl={user.picture}
-                      gender={getGender(user.title)}
-                    />
-                  </AppLink>
-                ))
-                : users && users.filter((user) => user
-                  .firstName.toLowerCase().match(searchValue.toLowerCase())
-                || user.lastName.toLowerCase().match(searchValue.toLowerCase()))
-                  .map((filteredUser: UserType) => (
-                    <AppLink
-                      key={filteredUser.id}
-                      routeName={RouteName.UserProfile}
-                      pathParams={{ id: filteredUser.id }}
-                      className={styles.userLinks}
-                    >
-                      <UserCard
-                        key={filteredUser.id}
-                        name={filteredUser.firstName}
-                        lastname={filteredUser.lastName}
-                        imageUrl={filteredUser.picture}
-                        gender={getGender(filteredUser.title)}
-                      />
-                    </AppLink>
-                  ))}
-            </div>
-          </div>
-        )}
+          <TextField
+            name="Search bar"
+            onChange={debouncedResults}
+            placeholder="Search"
+            className={styles.searchBar}
+            leftIcon={SearchSVG}
+          />
+
+        </div>
+
+        <div className={styles.cardContainer}>
+          {cardContainer()}
+        </div>
+      </div>
+      <ToastContainer />
     </div>
   );
 };

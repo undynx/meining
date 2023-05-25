@@ -42,18 +42,15 @@ export const SignIn = () => {
         password: passState,
       };
 
+      setBtnIsLoading(true);
       await SignInController.signIn(userSignIn);
-
       notifyOk();
 
       setTimeout(() => {
         navigate('/users');
-        setBtnIsLoading(false);
-      }, 2000);
+      }, 1000);
     } catch {
-      setTimeout(() => {
-        setBtnIsLoading(false);
-      }, 500);
+      setBtnIsLoading(false);
       notifyErr();
     }
   };
@@ -113,11 +110,9 @@ export const SignIn = () => {
               emailState.inputValueEmail === ''
               || passState === ''
               || emailState.fieldStatusEmail === TextFieldStatus.error
+              || btnIsLoading
             }
-            onClick={() => {
-              setBtnIsLoading(true);
-              loginUser();
-            }}
+            onClick={() => loginUser()}
           >
             {btnIsLoading ? <SmallSpinnerSVG className={styles.smallSpinner} /> : 'Ingresar'}
           </Button>

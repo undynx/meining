@@ -71,15 +71,13 @@ export const SignUp = () => {
         password: signupInfo.password,
       };
 
+      setBtnIsLoading(true);
       await SignUpController.SignUp(userSignUp);
-      setTimeout(() => {
-        setBtnIsLoading(false);
-      }, 500);
+      setBtnIsLoading(false);
+
       notifyOk();
     } catch {
-      setTimeout(() => {
-        setBtnIsLoading(false);
-      }, 500);
+      setBtnIsLoading(false);
       notifyErr();
     }
   };
@@ -246,10 +244,10 @@ export const SignUp = () => {
           || passState.fieldStatusPass === TextFieldStatus.error
           || passConfirmationState.inputValuePass === ''
           || passConfirmationState.fieldStatusPass === TextFieldStatus.error
+          || btnIsLoading
         }
         onClick={() => {
           localStorage.setItem(signupInfo.email, signupInfo.password);
-          setBtnIsLoading(true);
           createUser();
         }}
       >
