@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { SignUpController } from 'networking/controllers/sign-up-controller';
+
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
+import { ReactComponent as SmallSpinnerSVG } from '../../assets/icons/small-spinner.svg';
 import { mailFormat, passwordFormat } from '../../helpers/utils.js';
 import styles from './sign-up.module.scss';
 
@@ -52,6 +57,30 @@ export const SignUp = () => {
   const [passState, setPassState] = useState<PassType>(initPassState);
   const [passConfirmationState, setPassConfirmationState] = useState<PassType>(initPassState);
   const [signupInfo, setSignupInfo] = useState<SignUpFormType>(initSignUpState);
+  const [btnIsLoading, setBtnIsLoading] = useState(false);
+
+  const notifyOk = () => toast.success('Usuario creado correctamente');
+  const notifyErr = () => toast.error('Error');
+
+  const createUser = async () => {
+    try {
+      const userSignUp: SignUp = {
+        firstName: signupInfo.name,
+        lastName: signupInfo.lastname,
+        email: signupInfo.email,
+        password: signupInfo.password,
+      };
+
+      setBtnIsLoading(true);
+      await SignUpController.SignUp(userSignUp);
+      setBtnIsLoading(false);
+
+      notifyOk();
+    } catch {
+      setBtnIsLoading(false);
+      notifyErr();
+    }
+  };
 
   const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!e.target.value.match(mailFormat) && e.target.value !== '') {
@@ -215,13 +244,16 @@ export const SignUp = () => {
           || passState.fieldStatusPass === TextFieldStatus.error
           || passConfirmationState.inputValuePass === ''
           || passConfirmationState.fieldStatusPass === TextFieldStatus.error
+          || btnIsLoading
         }
         onClick={() => {
           localStorage.setItem(signupInfo.email, signupInfo.password);
+          createUser();
         }}
       >
-        Crear cuenta
+        {btnIsLoading ? <SmallSpinnerSVG className={styles.smallSpinner} /> : 'Crear cuenta'}
       </Button>
+      <ToastContainer />
     </div>
   );
 };

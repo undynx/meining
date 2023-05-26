@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import { SignInController } from 'networking/controllers/sign-in-controller';
+
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
 import { ReactComponent as xSVG } from '../../assets/icons/x.svg';
+import { ReactComponent as SmallSpinnerSVG } from '../../assets/icons/small-spinner.svg';
 import { mailFormat } from '../../helpers/utils.js';
 import styles from './sign-in.module.scss';
 
@@ -23,6 +29,31 @@ export const SignIn = () => {
   const [emailState, setEmailState] = useState<EmailType>(initEmailState);
   const [passState, setPassState] = useState('');
   const [passHidden, setPassHidden] = useState(true);
+  const [btnIsLoading, setBtnIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const notifyOk = () => toast.success('Usuario loggeado correctamente');
+  const notifyErr = () => toast.error('Error');
+
+  const loginUser = async () => {
+    try {
+      const userSignIn: SignIn = {
+        email: emailState.inputValueEmail,
+        password: passState,
+      };
+
+      setBtnIsLoading(true);
+      await SignInController.signIn(userSignIn);
+      notifyOk();
+
+      setTimeout(() => {
+        navigate('/users');
+      }, 1000);
+    } catch {
+      setBtnIsLoading(false);
+      notifyErr();
+    }
+  };
 
   const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!e.target.value.match(mailFormat) && e.target.value !== '') {
@@ -79,10 +110,14 @@ export const SignIn = () => {
               emailState.inputValueEmail === ''
               || passState === ''
               || emailState.fieldStatusEmail === TextFieldStatus.error
+              || btnIsLoading
             }
+            onClick={() => loginUser()}
           >
-            Ingresar
+            {btnIsLoading ? <SmallSpinnerSVG className={styles.smallSpinner} /> : 'Ingresar'}
           </Button>
+
+          <ToastContainer />
 
           <a
             className={`${styles.textField} ${styles.link}`}
