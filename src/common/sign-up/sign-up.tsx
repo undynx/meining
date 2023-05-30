@@ -248,7 +248,6 @@ export const SignUp = () => {
           || btnIsLoading
         }
         onClick={() => {
-          localStorage.setItem(signupInfo.email, signupInfo.password);
           createUser();
         }}
       >

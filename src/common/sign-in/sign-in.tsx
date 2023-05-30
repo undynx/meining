@@ -39,6 +39,7 @@ export const SignIn = () => {
   const notifyErr = () => toast.error('Error');
 
   const loginUser = async () => {
+    localStorage.clear();
     try {
       const userSignIn: User = {
         email: emailState.inputValueEmail,
@@ -53,6 +54,7 @@ export const SignIn = () => {
       dispatch({ type: userActions.USER_LOGGED, user: UserSerializer.deSerialize(data) });
       notifyOk();
 
+      localStorage.setItem('token', data.token);
       setTimeout(() => {
         navigate('/users');
       }, 1000);
