@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { SignInController } from 'networking/controllers/sign-in-controller';
 import { userActions, AppContext } from 'context';
-import { UserSerializer } from 'networking/serializers/users-serializer';
+import { SignInSerializer } from 'networking/serializers/sign-in-serializer';
 
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
@@ -44,12 +44,15 @@ export const SignIn = () => {
       const userSignIn: SignIn = {
         email: emailState.inputValueEmail,
         password: passState,
+        token: '',
+        firstName: '',
+        lastName: '',
       };
 
       setBtnIsLoading(true);
       await SignInController.signIn(userSignIn);
       const { data } = await SignInController.signIn(userSignIn);
-      await dispatch({ type: userActions.USER_LOGGED, user: UserSerializer.deSerialize(data) });
+      await dispatch({ type: userActions.USER_LOGGED, user: SignInSerializer.deSerialize(data) });
       notifyOk();
 
       localStorage.setItem('token', data.token);

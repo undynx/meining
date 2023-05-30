@@ -1,5 +1,5 @@
-class UserSerializer {
-  static deSerialize(data: RawUser): User {
+class GetUserSerializer {
+  static deSerialize(data: RawComptUser): ComptUser {
     return {
       firstName: data.firstname,
       lastName: data.lastname,
@@ -7,7 +7,7 @@ class UserSerializer {
     };
   }
 
-  static serialize(data: User): RawUser {
+  static serialize(data: ComptUser): RawComptUser {
     return {
       firstname: data.firstName,
       lastname: data.lastName,
@@ -16,4 +16,4 @@ class UserSerializer {
   }
 }
 
-export { UserSerializer };
+export { GetUserSerializer };

@@ -5,7 +5,7 @@ import { API_ROUTES } from 'networking/api-routes';
 class SignInController {
   static async signIn(data: SignIn) {
     const serializedData = SignInSerializer.serialize(data);
-    return ApiService.post<RawUserToken>(API_ROUTES.LOGIN, serializedData);
+    return ApiService.post<RawSignIn>(API_ROUTES.LOGIN, serializedData);
   }
 }
 

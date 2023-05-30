@@ -3,6 +3,9 @@ class SignInSerializer {
     return {
       email: data.email,
       password: data.password,
+      token: data.token,
+      firstName: data.firstname,
+      lastName: data.lastname,
     };
   }
 
@@ -10,6 +13,9 @@ class SignInSerializer {
     return {
       email: data.email,
       password: data.password,
+      token: data.token,
+      firstname: data.firstName,
+      lastname: data.lastName,
     };
   }
 }

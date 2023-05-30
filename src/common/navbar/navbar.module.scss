@@ -20,7 +20,7 @@
 
 .singleIcon{
   filter: invert(30%) sepia(97%) saturate(473%) hue-rotate(172deg) brightness(92%) contrast(85%);
-  margin: 12px;
+  margin-left: 12px;
 }
 
 .homeIcon{
@@ -34,4 +34,9 @@
 .profileDiv{
   display: flex;
   align-items: center;
+}
+
+.logoutIcon{
+  transform: scale(1.2);
+  margin-right: 12px;
 }
