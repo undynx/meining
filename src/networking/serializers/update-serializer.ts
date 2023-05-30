@@ -1,9 +1,8 @@
-class UserSerializer {
+class UpdateSerializer {
   static deSerialize(data: RawUser): User {
     return {
       firstName: data.firstname,
       lastName: data.lastname,
-      email: data.email,
     };
   }
 
@@ -11,9 +10,8 @@ class UserSerializer {
     return {
       firstname: data.firstName,
       lastname: data.lastName,
-      email: data.email,
     };
   }
 }
 
-export { UserSerializer };
+export { UpdateSerializer };
