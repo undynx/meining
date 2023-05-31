@@ -5,6 +5,7 @@ class UserSerializer {
       lastName: data.lastname,
       email: data.email,
       token: data.token,
+      password: data.password,
     };
   }
 
@@ -14,6 +15,7 @@ class UserSerializer {
       lastname: data.lastName,
       email: data.email,
       token: data.token,
+      password: data.password,
     };
   }
 }
