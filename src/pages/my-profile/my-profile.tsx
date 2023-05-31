@@ -11,7 +11,8 @@ import styles from './my-profile.module.scss';
 import { ReactComponent as PencilSVG } from '../../assets/icons/pencil.svg';
 import { ReactComponent as ConfirmSVG } from '../../assets/icons/confirm.svg';
 
-type ReadonlyFieldsType = {
+type ReadOnlyFieldsType = {
+  [key: string]: boolean,
   firstName: boolean;
   lastName: boolean;
 };
@@ -44,7 +45,7 @@ const initPasswordField = {
 };
 
 const MyProfile = () => {
-  const [isReadOnly, setReadOnly] = useState<ReadonlyFieldsType>(initReadOnlyFields);
+  const [isReadOnly, setReadOnly] = useState<ReadOnlyFieldsType>(initReadOnlyFields);
   const [inputValues, setInputValues] = useState<FieldStateType>(initFieldState);
   const [changePass, setChangePass] = useState(false);
   const [passInputValues, setPassInputValues] = useState<PasswordFieldType>(initPasswordField);
@@ -94,6 +95,16 @@ const MyProfile = () => {
     }
   };
 
+  const updateField = (name: string) => {
+    if (!isReadOnly[name]) {
+      updateData();
+    }
+    setReadOnly({
+      ...isReadOnly,
+      [name]: !isReadOnly[name],
+    });
+  };
+
   return (
     <div className={styles.container}>
       <img src="src/assets/icons/profile-default.jpg" alt="default profile" className={styles.profilePic} />
@@ -104,15 +115,7 @@ const MyProfile = () => {
           placeholder="Nombre"
           value={inputValues.firstName}
           rightIcon={isReadOnly.firstName ? PencilSVG : ConfirmSVG}
-          onRightIconClick={() => {
-            if (!isReadOnly.firstName) {
-              updateData();
-            }
-            setReadOnly({
-              ...isReadOnly,
-              firstName: !(isReadOnly.firstName),
-            });
-          }}
+          onRightIconClick={() => updateField('firstName')}
           onChange={(e) => {
             setInputValues({
               ...inputValues,
@@ -128,15 +131,7 @@ const MyProfile = () => {
           placeholder="Apellido"
           value={inputValues.lastName}
           rightIcon={isReadOnly.lastName ? PencilSVG : ConfirmSVG}
-          onRightIconClick={() => {
-            if (!isReadOnly.lastName) {
-              updateData();
-            }
-            setReadOnly({
-              ...isReadOnly,
-              lastName: !(isReadOnly.lastName),
-            });
-          }}
+          onRightIconClick={() => updateField('lastName')}
           onChange={(e) => {
             setInputValues({
               ...inputValues,
