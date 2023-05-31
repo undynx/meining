@@ -68,6 +68,9 @@ const MyProfile = () => {
       const updatedUser: User = {
         firstName: inputValues.firstName,
         lastName: inputValues.lastName,
+        password: '',
+        email: '',
+        token: '',
       };
 
       await UpdateController.update(updatedUser);
@@ -116,7 +119,7 @@ const MyProfile = () => {
               firstName: e.target.value,
             });
           }}
-          readonly={isReadOnly.firstName}
+          readOnly={isReadOnly.firstName}
           className={styles.field}
         />
         <TextField
@@ -140,7 +143,7 @@ const MyProfile = () => {
               lastName: e.target.value,
             });
           }}
-          readonly={isReadOnly.lastName}
+          readOnly={isReadOnly.lastName}
           className={styles.field}
         />
         <TextField

@@ -5,7 +5,6 @@ type User = {
   token: string,
   password: string,
 };
-
 type RawUser = {
   firstname: string,
   lastname: string,
