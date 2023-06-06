@@ -3,6 +3,7 @@ import { Home } from 'pages/home';
 import { About } from 'pages/about';
 import { UserList } from 'pages/user-list';
 import { UserProfile } from 'pages/user-profile';
+import { MyProfile } from 'pages/my-profile';
 import { NotFound } from 'pages/not-found';
 import { RouteName } from './routes';
 
@@ -15,6 +16,7 @@ const RouteComponent = {
   [RouteName.Login]: Login,
   [RouteName.UserList]: UserList,
   [RouteName.UserProfile]: UserProfile,
+  [RouteName.MyProfile]: MyProfile,
   [RouteName.NotFound]: NotFound,
 };
 
