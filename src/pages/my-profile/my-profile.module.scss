@@ -1,0 +1,22 @@
+@use '../../assets/stylesheets/colors' as *;
+@use '../../assets/stylesheets/mixins' as *;
+@use '../../assets/stylesheets/variables' as *;
+
+.container {
+  display: flex;
+  margin: 20px;
+}
+
+.field {
+  width: 300px;
+}
+
+.profilePic {
+  height: 200px;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+.passContainer {
+  margin: 20px
+}

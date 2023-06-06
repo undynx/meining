@@ -25,6 +25,7 @@ export interface TextFieldProps {
   type?: HTMLInputTypeAttribute;
   value?: string;
   errorMsg?: boolean;
+  readOnly?: boolean;
 }
 
 export const TextField = ({
@@ -44,6 +45,7 @@ export const TextField = ({
   type = 'text',
   value,
   errorMsg = false,
+  readOnly = false,
 }: TextFieldProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const focusOnInput = () => {
@@ -91,6 +93,7 @@ export const TextField = ({
           ref={inputRef}
           type={type}
           value={value}
+          readOnly={readOnly}
         />
       </div>
       {helperText && (
