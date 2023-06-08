@@ -32,6 +32,16 @@ const AppReducer = (state: UserStateType, action: Action) => {
         token: action.user.token,
         logged: true,
       };
+    case userActions.USER_LOGGED_OUT:
+      localStorage.clear();
+      return {
+        ...state,
+        firstName: '',
+        lastName: '',
+        email: '',
+        token: '',
+        logged: false,
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

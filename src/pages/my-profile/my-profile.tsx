@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { TextField } from 'common/text-field';
 import { Button } from 'common/button';
-import { AppContext } from 'context';
+import { AppContext, userActions } from 'context';
 import { UpdateController } from 'networking/controllers/update-controller';
 import { UpdatePassController } from 'networking/controllers/update-pass-controller';
 
@@ -50,7 +50,7 @@ const MyProfile = () => {
   const [changePass, setChangePass] = useState(false);
   const [passInputValues, setPassInputValues] = useState<PasswordFieldType>(initPasswordField);
 
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   const notifyOk = () => toast.success('Usuario actualizado correctamente');
   const notifyErr = () => toast.error('Error');
@@ -69,12 +69,13 @@ const MyProfile = () => {
       const updatedUser: User = {
         firstName: inputValues.firstName,
         lastName: inputValues.lastName,
-        password: '',
         email: '',
         token: '',
+        password: '',
       };
 
       await UpdateController.update(updatedUser);
+      await dispatch({ type: userActions.USER_LOGGED, user: updatedUser });
       notifyOk();
     } catch (error) {
       notifyErr();
