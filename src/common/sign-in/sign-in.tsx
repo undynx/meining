@@ -4,9 +4,9 @@ import { TextField, TextFieldStatus } from 'common/text-field';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { SignInController } from 'networking/controllers/sign-in-controller';
+import { UserController } from 'networking/controllers/user-controller';
 import { userActions, AppContext } from 'context';
-import { SignInSerializer } from 'networking/serializers/sign-in-serializer';
+import { UserSerializer } from 'networking/serializers/user-serializer';
 
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
@@ -41,18 +41,17 @@ export const SignIn = () => {
   const loginUser = async () => {
     localStorage.clear();
     try {
-      const userSignIn: SignIn = {
+      const userSignIn: User = {
         email: emailState.inputValueEmail,
         password: passState,
-        token: '',
         firstName: '',
         lastName: '',
+        token: '',
       };
 
       setBtnIsLoading(true);
-      await SignInController.signIn(userSignIn);
-      const { data } = await SignInController.signIn(userSignIn);
-      await dispatch({ type: userActions.USER_LOGGED, user: SignInSerializer.deSerialize(data) });
+      const { data } = await UserController.signIn(userSignIn);
+      dispatch({ type: userActions.USER_LOGGED, user: UserSerializer.deSerialize(data) });
       notifyOk();
 
       localStorage.setItem('token', data.token);

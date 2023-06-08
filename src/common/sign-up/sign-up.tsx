@@ -3,7 +3,7 @@ import { Button } from 'common/button';
 import { TextField, TextFieldStatus } from 'common/text-field';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { SignUpController } from 'networking/controllers/sign-up-controller';
+import { UserController } from 'networking/controllers/user-controller';
 
 import { ReactComponent as EyeSVG } from '../../assets/icons/eye.svg';
 import { ReactComponent as ClosedEyeSVG } from '../../assets/icons/closed-eye.svg';
@@ -64,15 +64,16 @@ export const SignUp = () => {
 
   const createUser = async () => {
     try {
-      const userSignUp: SignUp = {
+      const userSignUp: User = {
         firstName: signupInfo.name,
         lastName: signupInfo.lastname,
         email: signupInfo.email,
         password: signupInfo.password,
+        token: '',
       };
 
       setBtnIsLoading(true);
-      await SignUpController.SignUp(userSignUp);
+      await UserController.signUp(userSignUp);
       setBtnIsLoading(false);
 
       notifyOk();

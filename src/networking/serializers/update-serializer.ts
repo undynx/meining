@@ -3,6 +3,9 @@ class UpdateSerializer {
     return {
       firstName: data.firstname,
       lastName: data.lastname,
+      email: data.email,
+      token: data.token,
+      password: data.password,
     };
   }
 
@@ -10,6 +13,9 @@ class UpdateSerializer {
     return {
       firstname: data.firstName,
       lastname: data.lastName,
+      email: data.email,
+      token: data.token,
+      password: data.password,
     };
   }
 }

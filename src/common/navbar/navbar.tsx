@@ -1,6 +1,7 @@
 import { AppLink, RouteName } from 'routes';
 import { AppContext, userActions } from 'context';
 import { useContext } from 'react';
+import { classnames } from 'helpers/utils';
 
 import styles from './navbar.module.scss';
 import { ReactComponent as ProfileSVG } from '../../assets/icons/profile.svg';
@@ -12,13 +13,13 @@ export const Navbar = () => {
 
   return (
     <div className={styles.navbar}>
-      <AppLink routeName={RouteName.UserList}>
-        <HomeSVG className={`${styles.homeIcon} ${styles.singleIcon}`} />
+      <AppLink routeName={RouteName.Home}>
+        <HomeSVG className={classnames(styles.homeIcon, styles.singleIcon)} />
       </AppLink>
       <div className={styles.profileDiv}>
         {`Hola, ${state.firstName}`}
         <AppLink routeName={RouteName.MyProfile}>
-          <ProfileSVG className={`${styles.profileIcon} ${styles.singleIcon}`} />
+          <ProfileSVG className={classnames(styles.profileIcon, styles.singleIcon)} />
         </AppLink>
         <AppLink routeName={RouteName.Login}>
           <LogOutSVG

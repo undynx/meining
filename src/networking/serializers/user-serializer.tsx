@@ -1,21 +1,23 @@
-class SignUpSerializer {
-  static deSerialize(data: RawSignUp): SignUp {
+class UserSerializer {
+  static deSerialize(data: RawUser): User {
     return {
       firstName: data.firstname,
       lastName: data.lastname,
       email: data.email,
+      token: data.token,
       password: data.password,
     };
   }
 
-  static serialize(data: SignUp): RawSignUp {
+  static serialize(data: User): RawUser {
     return {
       firstname: data.firstName,
       lastname: data.lastName,
       email: data.email,
+      token: data.token,
       password: data.password,
     };
   }
 }
 
-export { SignUpSerializer };
+export { UserSerializer };
